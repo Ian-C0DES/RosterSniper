@@ -1,12 +1,15 @@
 {% spaceless %}
-{% regroup all_sections by course as courses %}
-{% for course in courses %}
+{% regroup all_sections by course as sections_by_course %}
+{% for course, sections in sections_by_course %}
 <div class="card courses-card">
 	<div class="card-header">
-		<div>{{ course.grouper.short_str }}</div>
-		<div>{{ course.grouper.title }}</div>
-		<div>{{ course.grouper.get_credit_hours }}</div>
+		<div>{{ course.short_str }}</div>
+		<div>{{ course.title }}</div>
+		<div>{{ course.get_credit_hours }}</div>
 	</div>
+
+	<button id="show-sections" type="button">Show Sections</button>
+	<button id="hide-sections" type="button">Hide Sections</button>
 
 	<table class="table">
 		<thead><tr>
@@ -18,27 +21,51 @@
 			<th class="section-options">Track</th>
 		</tr></thead>
 		<tbody>
-			{% regroup course.list by section_title as related_sections %}
-			{% for related_section in related_sections %}
-			{% if related_section.grouper != course.grouper.title %}
+			{% regroup sections by section_title as sections_by_title %}
+			{% for title, sections in sections_by_title %}
+			{% if not forloop.first or title != course.title %}
 			<tr class="section-title">
-				<td colspan="6">{{ related_section.grouper }}</td>
+				<td colspan="6">{{ title }}</td>
 			</tr>
 			{% endif %}
-			{% for section in related_section.list %}{% with crn=section.crn %}
+			{% for s in sections %}{% with crn=s.crn %}
 			<tr>
-				<td class="section">{{ section.section_num }}</td>
+				<td class="section">{{ s.section_num }}</td>
 				<td class="crn">{{ crn }}</td>
-				<td class="meeting"><span title="{{ section.get_meeting_full }}">{{ section.get_meeting }}</span></td>
-				<td class="professor">{{ section.get_prof_name }}</td>
-				<td class="seats">{{ section.enrolled }}/{{ section.capacity }}</td>
+				<td class="meeting"><span title="{{ s.get_meeting_full }}">
+					{% if user.military_time %}
+					{{ s.get_meeting_military }}
+					{% else %}
+				{{ s.get_meeting }}
+				{% endif %}
+				</span></td>
+				<td class="professor">{{ s.get_prof_name }}</td>
+				<td class="seats">{{ s.enrolled }}/{{ s.capacity }}</td>
 				<td class="section-options favorite">
 					<i id="{{ crn }}" title="Track?" class="{% if crn in crns %}fas{% else %}far{% endif %} fa-star pointer"></i>
 				</td>
 			</tr>
-			{% endwith %}{% endfor %}{% endfor %}
+			{% endwith %}{% endfor %}
+			{% endfor %}
 		</tbody>
 	</table>
+	<script>
+
+		$("button#show-sections").hide();
+
+		$("button#hide-sections").click(function() {
+			    $(this).parent().find("button#show-sections").show();
+			    $(this).parent().find("button#hide-sections").hide();
+			    $(this).parent().find("table").hide(250, "linear");
+		});
+
+		$("button#show-sections").click(function() {
+			    $(this).parent().find("button#hide-sections").show();
+			    $(this).parent().find("button#show-sections").hide();
+			    $(this).parent().find("table").show(250, "linear");
+		});
+
+	</script>
 </div>
 {% endfor %}
 {% endspaceless %}

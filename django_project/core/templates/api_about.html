@@ -1,0 +1,20 @@
+{% extends "base/small.html" %}
+
+{% block title %}API - {% endblock title %}
+
+{% block content %}
+	<h1>Endpoints</h1>
+	<ul>
+		<li>/api/schools/</li>
+		<li>/api/&lt;school&gt;/professors/</li>
+		<li>/api/&lt;school&gt;/terms/</li>
+		<li>/api/&lt;school&gt;/subjects/</li>
+		<li>/api/&lt;school&gt;/courses/</li>
+		<li>/api/&lt;school&gt;/sections/</li>
+	</ul>
+
+	<h3>Pagination</h3>
+	<p>
+		You can use the <code>offset=&lt;offset&gt;</code> or <code>limit=&lt;limit&gt;</code> query parameters to limit your results, e.g. <code>/api/&lt;school&gt;/sections/?offset=5&limit=10</code> to return 10 sections, starting with the 5th one.
+	</p>
+{% endblock content %}

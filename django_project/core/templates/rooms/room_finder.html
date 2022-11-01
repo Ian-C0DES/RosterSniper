@@ -1,0 +1,71 @@
+{% extends "base/base.html" %}
+{% load static %}
+
+{% block head %}
+	<link rel="stylesheet" type="text/css" href="{% static 'css/find_rooms.css' %}?4">
+	<link rel="stylesheet" type="text/css" href="{% static 'css/sidebar.css' %}?4">
+
+	<script type="text/javascript" src="{% static 'js/find_rooms.js' %}?10" defer></script>
+
+	<style>
+		:root {
+			--main-color: #{{ school.color_hex }};
+		}
+	</style>
+{% endblock %}
+
+{% block title %}Find Rooms - {% endblock title %}
+
+{% block content %}
+<div id="content-wrapper">
+	<div id="sidebar-col" class="border-right">
+		<div class="h5">
+			Options
+			<button id="apply" class="btn btn-link" onclick="sidebar(); update_rooms()">Apply</button>
+		</div>
+
+		Term
+		<div class="input-group">
+			<select id="term" class="custom-select custom-select-sm">{% for term in terms %}
+				<option value="{{ term.code }}"{% if term.default %} selected{% endif %}>{{ term.description }}</option>{% endfor %}
+			</select>
+		</div>
+
+		Days
+		<div id="days" class="btn-group btn-group-toggle btn-block" data-toggle="button" role="group">
+			<button type="button" class="btn btn-sm btn-outline-primary" data-placement="bottom" title="Monday">M</button>
+			<button type="button" class="btn btn-sm btn-outline-primary" data-placement="bottom" title="Tuesday">T</button>
+			<button type="button" class="btn btn-sm btn-outline-primary" data-placement="bottom" title="Wednesday">W</button>
+			<button type="button" class="btn btn-sm btn-outline-primary" data-placement="bottom" title="Thursday">R</button>
+			<button type="button" class="btn btn-sm btn-outline-primary" data-placement="bottom" title="Friday">F</button>
+			<button type="button" class="btn btn-sm btn-outline-primary" data-placement="bottom" title="Saturday">S</button>
+		</div>
+
+		Time Range
+		<div class="input-group">
+			<input id="timeStart" type="text" class="form-control form-control-sm timepicker" placeholder="Start time">
+			<input id="timeEnd" type="text" class="form-control form-control-sm timepicker" placeholder="End time">
+		</div>
+		<div class="form-check form-switch">
+			<input class="form-check-input" type="checkbox" id="id_timeFormat" name="timeFormat" value="no" unchecked>
+			<label class="form-check-label" for="id_timeFormat">Military Time</label>
+		</div>
+	</div>
+
+	<div id="overlay" onclick="sidebar()"></div>
+	<div id="results-col">
+		<div>
+			<button id="open-sidebar-btn" class="btn btn-primary mb-2 mr-2" type="button" onclick="sidebar()"><i class="fas fa-sliders-h"></i></button>
+			<span class="h4">Find Rooms</span>
+		</div>
+		<p id="num-of-rooms">Search for rooms that have no scheduled meetings during the specified time.</p>
+		<div id="rooms"></div>
+	</div>
+</div>
+{% endblock content %}
+
+{% block foot %}
+	<!-- wickedpicker - time picker -->
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/wickedpicker@0.4.3/dist/wickedpicker.min.css">
+	<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/wickedpicker@0.4.3/dist/wickedpicker.min.js"></script>
+{% endblock %}

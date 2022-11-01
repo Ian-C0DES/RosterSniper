@@ -1,0 +1,18 @@
+{% extends "base/regular.html" %}
+
+{% block content %}
+	{% block school-pre %}
+		<p>Please pick a school to continue:</p>
+	{% endblock %}
+	<div class="d-flex align-items-stretch flex-wrap">
+		{% for school in schools %}
+		<div class="card school">
+			<img src="/static/img/schools/{{ school.short_name }}.jpg" class="card-img-top" alt="{{ school.name }}">
+			<div class="card-body">
+				<h5 class="card-title">{{ school.name }}</h5>
+				{% block school-buttons %}{% endblock %}
+			</div>
+		</div>
+		{% endfor %}
+	</div>
+{% endblock content %}

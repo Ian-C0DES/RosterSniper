@@ -1,0 +1,7 @@
+{% extends "schools.html" %}
+
+{% block title %}Find Rooms - {% endblock title %}
+
+{% block school-buttons %}
+	<a href="{% url 'find_rooms' school.short_name %}" class="btn btn-primary btn-block">Find Rooms</a>
+{% endblock %}

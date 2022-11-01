@@ -10,13 +10,16 @@
 {% block title %}Your Courses - {% endblock title %}
 
 {% block content %}
-<h2 class="mb-3">Your Courses</h2>
-{% if favorites %}
-{% regroup favorites by section.term as grouped_favorites %}
-{% for term in grouped_favorites %}
-	<div class="card courses-card" data-term="{{ term.grouper.code }}">
-		<div class="card-header">{{ term.grouper }}</div>
+<h2 class="mb-3">Your Courses <span class="badge badge-secondary">{{ favorites|length }}</span></h2>
 
+{% regroup favorites by section.school as favorites_by_school %}
+{% for school, favorites in favorites_by_school %}
+	<h4 class="mb-3">{{ school.name }}</h4>
+
+	{% regroup favorites by section.term as favorites_by_term %}
+	{% for term, favorites in favorites_by_term %}
+	<div class="card courses-card" data-term-id="{{ term.id }}">
+		<div class="card-header">{{ term }}</div>
 		<table class="table">
 			<thead><tr>
 				<th>Course Code</th>
@@ -27,14 +30,19 @@
 				<th class="section-options">Options</th>
 			</tr></thead>
 			<tbody>
-				{% for favorite in term.list %}{% with section=favorite.section %}{% spaceless %}
+				{% for favorite in favorites %}{% with section=favorite.section %}{% spaceless %}
 				<tr id="{{ section.crn }}">
 					<td class="section">{{ section.get_code }}</td>
 					<td class="title">{{ section.section_title }}</td>
-					<td class="meeting"><span class="meeting" title="{{ section.get_meeting_full }}">{{ section.get_meeting }}</span></td>
+					<td class="meeting"><span class="meeting" title="{{ section.get_meeting_full }}">{% if user.military_time %}
+					{{ section.get_meeting_military }}
+					{% else %}
+				{{ section.get_meeting }}
+				{% endif %}</span></td>
 					<td class="professor">{{ section.get_prof_name }}</td>
 					<td class="seats">{{ section.enrolled }}/{{ section.capacity }}</td>
 					<td class="section-options options">
+						<i data-type="phone" title="SMS?" class="{% if favorite.phone_notify %}fas{% else %}far{% endif %} fa-mobile pointer"></i>
 						<i data-type="email" title="Emails?" class="{% if favorite.email_notify %}fas{% else %}far{% endif %} fa-envelope-open pointer"></i>
 						<i data-type="favorite" title="Untrack?" class="fas fa-star pointer"></i>
 					</td>
@@ -43,8 +51,8 @@
 			</tbody>
 		</table>
 	</div>
+	{% endfor %}
+{% empty %}
+	Looks like you aren't watching any courses. Head on over to the <a href="{% url 'home' %}">home</a> page, select a school, and start searching! &#128578;
 {% endfor %}
-{% else %}
-Looks like you aren't watching any courses. Head on over to the <a href="{% url 'add_courses' %}">add courses</a> page and start searching! &#128578;
-{% endif %}
 {% endblock content %}

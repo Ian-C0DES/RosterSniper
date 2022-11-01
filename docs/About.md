@@ -1,6 +1,6 @@
 # About
 
-RosterSniper is a web application built using the [Django](https://docs.djangoproject.com/en/3.1/) web framework.
+RosterSniper is a web application built using the [Django](https://www.djangoproject.com/) web framework.
 
 The django project was created by running
 ```

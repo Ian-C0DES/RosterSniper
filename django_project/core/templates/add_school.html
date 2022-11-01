@@ -1,0 +1,43 @@
+{% extends "schools.html" %}
+
+{% block school-pre %}
+<div class="jumbotron">
+	<h1 class="display-4 bold italic text-center pb-3">Add your school, help your comrades!</h1>
+
+	<div style="justify-content: center;
+    flex-direction: column;
+    align-content: space-around; flex-wrap: nowrap;" class="input-group">
+		<div id="div_id_school_name" class="form-group">
+			<label for="div_id_school_name" class="">School Name:</label>
+			<div>
+				<input type="text" name="school_name" maxlength="150" class="textinput textInput form-control" id="id_school_name">
+				<small id="hint_id_school_name" class="form-text text-muted">*Required
+			</small> </div> </div>
+		</div>
+<div style="justify-content: center;
+    flex-direction: column;
+    align-content: space-around; flex-wrap: nowrap;" class="input-group">
+		<label for="school_url">Banner URL: </label>
+		<input type="url" name="school_url" id="school_url"
+       placeholder="https://ggc.gabest.usg.edu/StudentRegistrationSsb/ssb/"
+       pattern="https://.*" size="45"
+       required>
+		<small id="hint_id_school_url" class="form-text text-muted">*Required
+			</small>
+	</div>
+	<div style="justify-content: center;
+    flex-direction: column;
+    align-content: space-around; flex-wrap: nowrap;" class="input-group">
+	<label for="school_color">School color:</label>
+  <input type="color" id="school_color" name="school_color" value="#00704a" size="45" style="width: auto;">
+
+		</div>
+
+	<a style="margin-top: 35px;" class="btn btn-primary btn-lg" href="{% url 'about' %}" role="submit">Submit</a>
+</div>
+{% endblock %}
+
+{% block school-buttons %}
+	<a href="{% url 'add_courses' school.short_name %}" class="btn btn-primary btn-block">Add Courses</a>
+	<a href="{% url 'find_rooms' school.short_name %}" class="btn btn-primary btn-block">Room Finder</a>
+{% endblock %}

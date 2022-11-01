@@ -3,7 +3,7 @@ https://www.ggc.edu/community/brand-management/graphic-standards-guide/colors/
 */
 
 :root {
-	--grizzly-green: #00704A;
+	--main-color: #00704A;
 }
 
 html, body {
@@ -15,13 +15,13 @@ body {
 	padding-top: 0.1px; /* Prevent collapsing margin */
 }
 main {
-	margin-top: 58px;
-	height: calc(100% - 57.9px);
+	margin-top: 56px;
+	height: calc(100% - 55.9px);
 	overflow-x: auto;
 }
 
 #rs-nav {
-	background-color: var(--grizzly-green);
+	background-color: var(--main-color);
 	box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.5);
 }
 #rs-nav .navbar-nav .nav-link {
@@ -48,8 +48,8 @@ main {
 }
 
 .btn-primary {
-	background-color: var(--grizzly-green);
-	border-color: var(--grizzly-green);
+	background-color: var(--main-color);
+	border-color: var(--main-color);
 }
 .btn-primary:hover,
 .btn-primary:focus {
@@ -61,6 +61,12 @@ main {
 	border-color: #006644 !important;
 }
 
+.btn-link-inline {
+	padding: 0;
+	display: inline;
+	vertical-align: initial;
+}
+
 .pointer:hover {
 	cursor: pointer;
 }
@@ -69,4 +75,15 @@ main {
 }
 .italic {
 	font-style: italic;
+}
+
+/* School cards */
+.school {
+	margin-right: 1rem;
+	margin-bottom: 1rem;
+	width: 18rem;
+}
+.school > img:first-child {
+	height: 10rem;
+	object-fit: cover;
 }

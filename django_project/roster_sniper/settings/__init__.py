@@ -17,8 +17,8 @@ previous statement, local.py can also include
 because the DATABASES dictionary is defined in development.py/production.py.
 
 For more information about Django settings, check out the following links
-General information:   https://docs.djangoproject.com/en/3.1/topics/settings/
-List of all settings:  https://docs.djangoproject.com/en/3.1/ref/settings/
+General information:   https://docs.djangoproject.com/en/stable/topics/settings/
+List of all settings:  https://docs.djangoproject.com/en/stable/ref/settings/
 """
 
 import os

@@ -17,6 +17,7 @@ from .models import User
 from .forms import MyUserCreationForm, UserUpdateForm
 from .tokens import activation_token_generator
 
+
 def register(request):
 
 	if request.method == 'POST':
@@ -35,7 +36,7 @@ def register(request):
 
 			return redirect('profile')
 
-	elif request.is_ajax() and request.GET.get('send_email'):
+	elif request.method == 'GET' and request.GET.get('send_email'):
 		send_email_verification(request.user)
 		messages.info(request, 'A verification email has been sent.')
 		return HttpResponse('')

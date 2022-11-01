@@ -13,6 +13,13 @@
 	font-size: 1.3rem;
 	font-weight: 500;
 }
+#show-sections{
+background-color: #ffffff;
+border: none;
+}
+#hide-sections{
+border: none;
+}
 
 /* The following is for classes with a long name on a tablet-like screen eg
 

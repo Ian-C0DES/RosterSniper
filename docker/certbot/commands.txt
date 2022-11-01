@@ -1,0 +1,14 @@
+docker create --name certbot -v letsencrypt:/etc/letsencrypt certbot/certbot
+
+docker run -it -v letsencrypt:/etc/letsencrypt --rm certbot/certbot
+
+docker start
+certbot certonly --manual \\
+	--preferred-challenges dns-01 \\
+	-d rostersniper.com -d "*.rostersniper.com"
+
+docker run -it --rm --name certbot \
+	--v letsencrypt:/etc/letsencrypt \
+	certbot/certbot certonly certonly --manual \\
+	--preferred-challenges dns-01 \\
+	-d rostersniper.com -d "*.rostersniper.com"

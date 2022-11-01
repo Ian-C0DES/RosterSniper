@@ -20,37 +20,42 @@ $(function () {
 function update_courses() {
 	const searchParams = new URLSearchParams();
 
-	$("#term, #sidebar-col input, #q").each(function() {
-		if ( x = $(this).val().trim() ) searchParams.append($(this).attr('id'), x);
+	// URL without query string
+	const url = window.location.pathname.split('?')[0]
+
+	$("#term, #sidebar-col input, #q").each(function () {
+		if (x = $(this).val().trim()) searchParams.append($(this).attr('id'), x);
 	});
 
 	let days = '';
-	$('#days > button').each(function() {
+	$('#days > button').each(function () {
 		if ($(this).hasClass('active')) days += this.innerHTML;
 	});
 	if (days) searchParams.append("days", days);
 
 	// Don't allow empty searches (term will always be present)
 	if ([...searchParams].length < 2) {
-		if ( !$('#courses-col').hasClass('bear') ) {
+		if (!$('#courses-col').hasClass('bear')) {
 			$('#courses-col').addClass('bear');
 			$('#courses').html('');
-			history.pushState(null, '', '/add-courses/');
+			history.pushState(null, '', url);
 		}
 		return;
 	} // else..
 
 	let params = searchParams.toString()
 	$('#courses-col').removeClass('bear');
-	history.pushState(null, '', '/add-courses/?' + params);
-	$.getJSON('/get-courses/?' + params).done(
+	history.pushState(null, '', url + '?' + params);
+	$.getJSON(`/${url.split('/')[1]}/get-courses/?${params}`).done(
 		response => {
 			$('#courses').html(response['courses']);
 			$('.meeting > span').tooltip({delay: {show: 1500, hide: 100}});
 			$('#courses .card-footer button').click(show_all);
 			$('#courses td i.fa-star').on('click', favorite);
 		}
-	)
+	);
+
+	$('main').removeClass('sidebar-open');
 }
 
 function show_all() {
@@ -75,4 +80,8 @@ function favorite() {
 	} else {
 		window.location.href = '/login/'
 	}
+}
+
+function sidebar() {
+	 $('main').toggleClass('sidebar-open');
 }

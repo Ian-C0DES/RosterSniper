@@ -10,10 +10,14 @@
 		<fieldset>
 			<legend class="border-bottom mb-4">Your Profile</legend>
 			{{ form|crispy }}
+			<hr>
 		</fieldset>
 		{% if not user.email_confirmed %}
 		<p>You must confirm your email to receive notifications. <button id="send_email" type="button" class="btn btn-link p-0 align-baseline">Resend confirmation email</button></p>
 		{% endif %}
+<!--		Add an if not statement like above, once the database has been updated-->
+		<p>You must confirm your SMS Number to receive notifications. <button id="send_sms" type="button" class="btn btn-link p-0 align-baseline">Resend confirmation SMS</button></p>
+<!--		Add an endif statement like above, once the database has been updated-->
 		<p><a href="{% url 'password_change' %}">Change your password</a></p>
 		<div class="form-group">
 			<button class="btn btn-outline-info" type="submit">Save</button>
@@ -24,9 +28,15 @@
 
 {% block foot %}
 	<script type="text/javascript">
+		$('#id_timeFormat').click(function() {
+		var x = $user.military_time;
+		console.log(x);
+		});
+
 		$('#send_email').click(function() {
 			$.get("{% url 'register' %}?send_email=true")
 			.done( () => location.reload() ); {# shows "email has been sent" msg #}
 		});
+<!--add a function to resend sms confirmation, similar to above, once ready.-->
 	</script>
 {% endblock foot %}

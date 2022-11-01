@@ -8,7 +8,7 @@ from django.db import models
 Based on
 https://www.fomfus.com/articles/how-to-use-email-as-username-for-django-authentication-removing-the-username
 https://tech.serhatteker.com/post/2020-01/email-as-username-django/
-https://docs.djangoproject.com/en/3.0/topics/auth/customizing/#a-full-example
+https://docs.djangoproject.com/en/stable/topics/auth/customizing/#a-full-example
 
 Django's default UserManager:
 https://github.com/django/django/blob/master/django/contrib/auth/models.py
@@ -50,7 +50,10 @@ class User(AbstractUser):
 	email_notify = models.BooleanField(default=True,
 		help_text='Whether the user should receive emails')
 	email_unsub_id = models.UUIDField(default=uuid.uuid4)
-
+	phone = models.CharField(max_length=15, blank=True, default='')
+	phone_notify = models.BooleanField(default=False,
+		help_text='Whether the user should receive SMS')
+	military_time = models.BooleanField(default=False, help_text='Whether the user prefers military time')
 	objects = UserManager()
 
 	USERNAME_FIELD = 'email'

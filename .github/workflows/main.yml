@@ -1,0 +1,44 @@
+# This is a basic workflow to help you get started with Actions
+
+name: CI
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the "master" branch
+  push:
+    branches: [ "development", "tm_dev" ]
+  pull_request:
+    branches: [ "development", "tm_dev" ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  # This workflow contains a single job called "deploy"
+  deploy:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+#       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+#       - uses: actions/checkout@v3
+
+      - name: Update development server
+        env:
+          private_key: ${{ secrets.SSH_PRIVATE_KEY }}
+          public_key: ${{ secrets.SSH_PUBLIC_KEY }}
+          host_fingerprint: ${{ secrets.SSH_HOST_FINGERPRINT }}
+          host: ${{ secrets.SSH_HOST }}
+          port: ${{ secrets.SSH_PORT }}
+          user: ${{ secrets.SSH_USER }}
+          cmd: "git -C /var/www/dev.rostersniper.com/RosterSniper/ pull"
+        run: |
+          echo "${private_key}" > id_rsa
+          echo "${public_key}" > id_rsa.pub
+          echo "${host_fingerprint}" > known_hosts
+          chmod 600 id_rsa
+          chmod 600 id_rsa.pub
+          chmod 600 known_hosts
+          ssh -p ${port} ${user}@${host} -o "UserKnownHostsFile=./known_hosts" -i id_rsa "${cmd}"

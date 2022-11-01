@@ -9,7 +9,7 @@ function update_favorites() {
 	clicked.toggleClass('fas far');
 
 	$.get('/my-courses/', {
-		term: clicked_row.closest('.card').attr("data-term"),
+		term: clicked_row.closest('.card').attr("data-term-id"),
 		crn: clicked_row.attr('id'),
 		[clicked.data('type')]: clicked.hasClass('fas')
 	});

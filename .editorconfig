@@ -5,10 +5,14 @@ root = true
 
 # Unix-style newlines with a newline ending every file
 [*]
+charset = utf-8
 end_of_line = lf
 insert_final_newline = true
 
-[*.{py, html, css, js, json, md}]
-charset = utf-8
+[*.{py, html, css, js, json, md, conf}]
 indent_style = tab
 indent_size = 4
+
+[*.yaml]
+indent_style = space
+indent_size = 2

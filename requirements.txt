@@ -1,10 +1,10 @@
-# Python must be 3.8 or higher! (some files uses PEP 572)
+# Python must be 3.8 or higher! (some files uses PEP 572 aka :=)
 
-Django~=3.1.0
-django-crispy-forms~=1.10.0
+Django~=4.1.0
+django-crispy-forms>=1.14.0
 
 # HTTP library used to download banner course data
-requests~=2.25.0
+requests>=2.28.0
 
 # PostgreSQL Python adapter, Django requires at least 2.5.4
 psycopg2-binary>=2.5.4

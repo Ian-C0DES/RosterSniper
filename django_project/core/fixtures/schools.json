@@ -1,0 +1,21 @@
+[
+{
+	"model": "core.webscraper",
+	"pk": 1,
+	"fields": {
+		"name": "banner9"
+	}
+},
+{
+	"model": "core.school",
+	"pk": 1,
+	"fields": {
+		"name": "Georgia Gwinnett College",
+		"short_name": "ggc",
+		"active": true,
+		"color_hex": "00704A",
+		"web_scraper": 1,
+		"url": "https://ggc.gabest.usg.edu/StudentRegistrationSsb/ssb/"
+	}
+}
+]

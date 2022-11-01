@@ -16,11 +16,11 @@ ALLOWED_HOSTS = ['localhost', '127.0.0.1']
 # Technically, I guess this is an origin because of the scheme and port
 DEFAULT_HOST = 'http://localhost:8000'
 
-# Database https://docs.djangoproject.com/en/3.0/ref/settings/#databases
+# Database https://docs.djangoproject.com/en/stable/ref/settings/#databases
 DATABASES = {
 	'default': {
 		'ENGINE': 'django.db.backends.sqlite3',
-		'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+		'NAME': BASE_DIR / 'db.sqlite3',
 	}
 }
 
@@ -35,4 +35,4 @@ https://docs.djangoproject.com/en/stable/topics/email/#email-backends
 If you want to add your own email account, see local_example.py
 """
 EMAIL_BACKEND = 'django.core.mail.backends.filebased.EmailBackend'
-EMAIL_FILE_PATH = os.path.join(BASE_DIR, '@ emails')
+EMAIL_FILE_PATH = BASE_DIR / '@ emails'

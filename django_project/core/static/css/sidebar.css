@@ -1,0 +1,113 @@
+#content-wrapper {
+	display: flex;
+	height: 100%;
+
+	/* On small screens #sidebar-col is positioned using position: absolute;
+	 * This positions it relative to the nearest positioned (non-static)
+	 * ancestor, aka this element.
+	 */
+	position: relative;
+}
+
+/********** Sidebar Column **********/
+
+#sidebar-col {
+	padding: 1rem;
+	width: 240px;
+	flex-shrink: 0;
+	background-color: #F4F4F4;
+	box-shadow: 5px 0px 10px 0px rgba(176,176,176,0.1);
+
+	-webkit-transition: all 350ms ease-in-out;
+	-moz-transition: all 350ms ease-in-out;
+	-o-transition: all 350ms ease-in-out;
+	transition: all 350ms ease-in-out;
+	transition-property: left;
+}
+/* Adds padding between each row of options */
+#sidebar-col > div {
+	padding-bottom: 1rem;
+}
+
+#open-sidebar-btn {
+	display: none;
+}
+
+@media (max-width: 900px) {
+	#open-sidebar-btn {
+		display: initial;
+	}
+
+	#sidebar-col {
+		z-index: 4;
+		position: absolute;
+		top: 0;
+		left: -240px;
+		bottom: 0;
+		overflow-y: auto;
+	}
+
+	main.sidebar-open #sidebar-col {
+		left: 0px;
+	}
+
+	main.sidebar-open #overlay {
+		z-index: 3;
+		position: absolute;
+		top: 0;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		background: rgba(0, 0, 0, 0.5);
+	}
+}
+
+/**************** Sidebar Buttons ****************/
+
+#apply {
+	float: right;
+	padding: 0;
+	font-size: 1.25rem;
+	line-height: 1.1;
+}
+
+#days button {
+	background-color: white !important;
+	border-color: #ced4da !important;
+	color: #6c757d;
+}
+#days button:hover {
+	background-color: #b2b8bf !important;
+	border-color: #b2b8bf !important;
+	color: white;
+}
+#days button:active,
+#days button.active {
+	background-color: #6c757d !important;
+	border-color: #6c757d !important;
+	color: white;
+}
+/* While this also disables the shadow when selecting the button by tabbing over
+to it, which is unfortunate, the shadow when clicking was just too ugly. */
+#days button:focus {
+	box-shadow: none !important;
+}
+
+/******************** Results Column ********************/
+
+#results-col {
+	padding: 1.3rem;
+	flex-grow: 1;
+
+	/* scroll is used instead of auto because we always want the scrollbar to be
+	shown in this case. If auto was used there wouldn't be a scrollbar on the
+	empty search page but once the user searched for something with enough
+	results, a scrollbar would appear and suddenly push the search bar/button
+	to the left which doesn't look nice. */
+	overflow-y: scroll;
+}
+/* The max-width is applied to all div children instead of the #courses-col
+itself because we want the scrollbar to be all the way to the right. */
+#results-col > div {
+	max-width: 1600px;
+}

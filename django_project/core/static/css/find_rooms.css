@@ -1,0 +1,27 @@
+#rooms {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 1rem;
+}
+#rooms > div {
+	width: 9rem;
+	height: 5rem;
+	text-align: center;
+	line-height: 5rem;
+
+	/* Bootstrap h5 class */
+	font-size: 1.25rem;
+	font-weight: 500;
+}
+#rooms > div > span {
+	line-height: 5rem;
+}
+
+/* Firefox sometimes ignores bottom padding
+ https://stackoverflow.com/q/29986977
+ */
+@-moz-document url-prefix() {
+	#rooms > div:last-child{
+		margin-bottom: 1rem;
+	}
+}

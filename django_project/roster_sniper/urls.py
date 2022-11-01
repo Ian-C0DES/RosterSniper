@@ -1,7 +1,7 @@
 """ roster_sniper URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/3.0/topics/http/urls/
+    https://docs.djangoproject.com/en/stable/topics/http/urls/
 Examples:
 Function views
     1. Add an import:  from my_app import views
@@ -15,7 +15,6 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic.base import RedirectView
 
 from .error_views import handler418
 
@@ -26,9 +25,9 @@ handler404 = 'roster_sniper.error_views.handler404'
 handler500 = 'roster_sniper.error_views.handler500'
 
 urlpatterns = [
+	path('', include('core.urls')),
+	path('', include('users.urls')),
+
 	path('admin/', admin.site.urls),
 	path('teapot/', handler418),
-
-	path('', include('core.urls')),
-	path('', include('users.urls'))
 ]

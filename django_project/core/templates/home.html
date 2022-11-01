@@ -1,11 +1,10 @@
-{% extends "base/regular.html" %}
+{% extends "schools.html" %}
 
-{% block content %}
+{% block school-pre %}
 <div class="jumbotron">
 	<h1 class="display-4 bold italic text-center pb-3">&ldquo;BUT I NEED THAT CLASS!&rdquo;</h1>
 
 	<p class="lead">We've been there. Your friends all signed up for classes as soon as registration opened, but you had one more Roblox to blox, one more Minecraft to craft, and one more YouTube to tube. Now you're stuck between a Saturday 7am and a MTWTF 6pm-10pm with none other than Doctor Payne.</p>
-
 
 	<h3 class="display-6 text-center italic pb-2">&ldquo;...but what if there was another way?&rdquo;</h3>
 
@@ -14,6 +13,12 @@
 	<p class="lead pb-1">Well there is a way. RosterSniper works by sending you a notification as soon as your class has an open seat. But be speedy, because you're not the only one using our website. Register, verify, and let the race to schedule redemption begin!</p>
 
 	<a class="btn btn-primary btn-lg" href="{% url 'about' %}" role="button">Learn more</a>
+	<a class="btn btn-primary btn-lg" href="{% url 'add-school' %}" role="button">Add your School</a>
 </div>
-<!-- thanks to dinosaursninja#9988 for the divine assistance-->
-{% endblock content %}
+<!-- thanks to dinosaursninja#9988 for the divine assistance -->
+{% endblock %}
+
+{% block school-buttons %}
+	<a href="{% url 'add_courses' school.short_name %}" class="btn btn-primary btn-block">Add Courses</a>
+	<a href="{% url 'find_rooms' school.short_name %}" class="btn btn-primary btn-block">Room Finder</a>
+{% endblock %}
